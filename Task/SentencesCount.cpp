@@ -6,8 +6,9 @@
 #include <string>
 #include <fstream>
 
-int GetSentencesCount(std::fstream f,std::string str)
+int GetSentencesCount(std::string& fname)
 {
+	std::ifstream f(fname);
 	if (f)
 	{
 		char c;
