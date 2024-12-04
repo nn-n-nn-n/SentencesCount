@@ -12,20 +12,18 @@ int GetSentencesCount(std::string fname)
 	if (f)
 	{
 		char c;
-		bool word;
+		bool word = false;
 		int result = 0;
-		while (c = f.get())
+		while (c = f.get())																						// считывание символа из файла
 		{
-			if (c != ' ' && c != '\t' && c != '\n' && c != '.' && c != '!' && c != '?')
-			{
+			if (c != ' ' && c != '\t' && c != '\n' && c != '.' && c != '!' && c != '?' && c != (char)-1)		// проверка на пробелы, табуляцию, конец строки, знаки препинания и конец файла
 				word = true;
-				continue;
-			}
-			if (c == '.' || c == '!' || c == '?' && word)
+			if ((c == '.' || c == '!' || c == '?' || c == (char)-1) && word == true)							// проверка на (. или ? или ! или конец файла) и наличие слова до этого
 			{
 				result++;
 				word = false;
 			}
+			if (f.eof()) break;																					// проверка на конец файла
 		}
 		return result;
 	}
